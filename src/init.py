@@ -57,7 +57,8 @@ def dataPaser(data, table):
                 db_rubbish_box[table] += 1
         except Exception:
             Log.error('The data in {table} has some problem: {data}'.format(table=table, data=each))
-    mongo_db.db['info'].insert(mongo_array)
+    if len(mongo_array) > 0:
+        mongo_db.db['info'].insert(mongo_array)
 
 if __name__ == '__main__':
     mongo_db = MongoConn()
@@ -88,7 +89,7 @@ if __name__ == '__main__':
             except Exception:
                 print traceback.format_exc()
         Log.celebrate('The data in {table} has already saved in mongo, rubbish: {rubbish}, repetition: {repetition}'
-                      .format(table=table, rubbish=db_rubbish_box[table], repetition=db_repetition_box[table]))
+                  .format(table=table, rubbish=db_rubbish_box[table], repetition=db_repetition_box[table]))
 
     # 保存一些统计数据
     db_rubbish_box['source'] = 'rubbish'
