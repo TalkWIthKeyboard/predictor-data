@@ -1,0 +1,1 @@
+mongodump -h 122.152.219.33 --port 27017 -u passworddataOnwer -p hell0w0rld -d passworddata -o ../../db

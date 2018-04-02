@@ -23,12 +23,13 @@ db_useful_schema = {
     'tianya': ['password', 'email', 'username']
 }
 
-db_table_name = ['t12306', '7k7k', 'duduniu', 'phpbb', 'rock', 'tianya']
+user_info_db_table_name = ['t12306', '7k7k', 'duduniu', 'tianya']
+no_user_info_db_table_name = ['phpbb', 'rock']
 db_rubbish_box = {}
 db_repetition_box = {}
 db_hash_map = {}
 
-for name in db_table_name:
+for name in user_info_db_table_name + no_user_info_db_table_name:
     db_rubbish_box[name] = 0
     db_repetition_box[name] = 0
     db_hash_map[name] = {}
@@ -58,7 +59,11 @@ def dataPaser(data, table):
         except Exception:
             Log.error('The data in {table} has some problem: {data}'.format(table=table, data=each))
     if len(mongo_array) > 0:
-        mongo_db.db['info'].insert(mongo_array)
+        if table in no_user_info_db_table_name:
+            mongo_db.db['nouserinfopasswords'].insert(mongo_array)
+            return
+        if table in user_info_db_table_name:
+            mongo_db.db['userinfopasswords'].insert(mongo_array)
 
 if __name__ == '__main__':
     mongo_db = MongoConn()

@@ -5,7 +5,7 @@ import sys
 import traceback
 
 MONGODB_CONFIG = {
-    'host': '122.152.219.33',
+    'host': 'localhost',
     'port': 27017,
     'db_name': 'passworddata',
     'username': 'passworddataOnwer',
